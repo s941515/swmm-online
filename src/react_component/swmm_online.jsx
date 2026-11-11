@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 require('font-awesome-webpack');
 
 import React from "react";
