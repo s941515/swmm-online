@@ -1,4 +1,5 @@
 /* eslint-disable react/no-deprecated */
+/* eslint-disable react/prop-types */
 require('font-awesome-webpack');
 
 import React from "react";
@@ -65,7 +66,7 @@ const initState = {
 const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || (a => a);
 const store = createStore(reducer, initState, enhancer(applyMiddleware()));
 
-// 建立錯誤邊界元件，攔截舊版 React #170 崩潰
+// 建立錯誤邊界元件
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
