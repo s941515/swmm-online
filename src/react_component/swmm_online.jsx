@@ -61,11 +61,21 @@ const initState = {
     listFilter: CONSTS.EMPTY_STRING,
   }
 };
+
 const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || (a => a);
 const store = createStore(reducer, initState, enhancer(applyMiddleware()));
+
+// 安全取得或自動建立掛載點容器，徹底預防 React #170 崩潰
+let mountNode = document.getElementById('swmm-online');
+if (!mountNode) {
+  mountNode = document.createElement('div');
+  mountNode.id = 'swmm-online';
+  document.body.appendChild(mountNode);
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedSwmmApp/>
   </Provider>,
-  document.getElementById('swmm-online')
+  mountNode
 );
