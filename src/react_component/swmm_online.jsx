@@ -65,17 +65,23 @@ const initState = {
 const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || (a => a);
 const store = createStore(reducer, initState, enhancer(applyMiddleware()));
 
-// 安全取得或自動建立掛載點容器，徹底預防 React #170 崩潰
-let mountNode = document.getElementById('swmm-online');
-if (!mountNode) {
-  mountNode = document.createElement('div');
-  mountNode.id = 'swmm-online';
-  document.body.appendChild(mountNode);
-}
+// 確保 DOM 載入完成且安全延遲執行，避開生命週期衝突
+window.addEventListener('DOMContentLoaded', () => {
+  let mountNode = document.getElementById('swmm-online');
+  if (!mountNode) {
+    mountNode = document.createElement('div');
+    mountNode.id = 'swmm-online';
+    document.body.appendChild(mountNode);
+  }
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedSwmmApp/>
-  </Provider>,
-  mountNode
-);
+  try {
+    ReactDOM.render(
+      <Provider store={store}>
+        <ConnectedSwmmApp/>
+      </Provider>,
+      mountNode
+    );
+  } catch (error) {
+    console.error("SWMM Mount Error:", error);
+  }
+});
