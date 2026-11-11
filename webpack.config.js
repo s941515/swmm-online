@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: {
     app: [__dirname + "/src/react_component/swmm_online.jsx", __dirname + "/styles/style.scss"],
@@ -9,7 +10,8 @@ module.exports = {
   devtool: "inline-source-map",
   output: {
     path: __dirname + "/dist",
-    filename: "bundle.js"
+    filename: "bundle.js",
+    publicPath: "/swmm-online/" // 👈 關鍵：強制指定 GitHub Pages 的子路徑，徹底解決 404 與資源載入失敗
   },
   devServer: {
     contentBase: "./dist",
