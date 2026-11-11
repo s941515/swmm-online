@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: __dirname + "/dist",
     filename: "bundle.js",
-    publicPath: "/swmm-online/" // 👈 關鍵：強制指定 GitHub Pages 的子路徑，徹底解決 404 與資源載入失敗
+    publicPath: "/swmm-online/" 
   },
   devServer: {
     contentBase: "./dist",
@@ -29,6 +29,19 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader?minimize', 'sass-loader']
         })
+      },
+      // 👇 【新增】補上圖片處理規則，讓 Webpack 自動把 .png/.jpg 打包進 dist/images/
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]',
+              publicPath: '/swmm-online/'
+            }
+          }
+        ]
       },
       {
         test: /.woff|.woff2|.svg|.eot|.ttf/,
