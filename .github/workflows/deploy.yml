@@ -14,12 +14,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '12'
 
       - name: Install Dependencies & Build
         run: |
           npm install --legacy-peer-deps
-          npm install node-sass@latest --legacy-peer-deps
           npm run build
 
       - name: Deploy to GitHub Pages
