@@ -18,8 +18,8 @@ jobs:
 
       - name: Install Dependencies & Build
         run: |
-          npm install --legacy-peer-deps
-          DISABLE_ESLINT_PLUGIN=true npm run build
+          npm ci
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
